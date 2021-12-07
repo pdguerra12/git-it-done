@@ -10,7 +10,6 @@ var getRepoName = function() {
     if (repoName) {
         // display repo name on the page
         repoNameEl.textContent = repoName;
-
         getReposIssues(repoName);
     } else {
         //if no repo was given, redirect to the homepage
@@ -20,7 +19,7 @@ var getRepoName = function() {
 
 var getReposIssues = function (repo) {
     var apiUrl = "https://api.github.com/repos/" + repo + "/issues?direction=asc";
-
+    // make a get request to url
     fetch(apiUrl).then(function(response) {
         // request was successful
         if (response.ok) {
@@ -28,7 +27,7 @@ var getReposIssues = function (repo) {
                 // pass response data to dom function
                 displayIssues(data);
         
-                // check i fapi has paginated issues
+                // check if api has paginated issues
                 if (response.headers.get("Link")) {
                     displayWarning(repo);
                 }
